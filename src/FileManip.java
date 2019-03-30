@@ -63,11 +63,20 @@ public class FileManip {
 	 * @return
 	 */
 	public boolean closeScannerAndWriter() {
-		if (inputReader != null && outputFileName != null)
+		if (inputReader != null || outputFileName != null)
 		{
-			System.out.println("Closing Scanner and PrintWriter");
-			inputReader.close();
-			outputWriter.close();
+			if (inputReader != null)
+			{
+				System.out.println("Closing Scanner");
+				inputReader.close();
+			}
+
+			if (outputWriter != null)
+			{
+				System.out.println("Closing Printer");
+				outputWriter.close();
+			}
+
 			return true;
 		}
 		else
