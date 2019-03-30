@@ -2,7 +2,7 @@
 
 ## Assignment Description
 
-This program manipulates a set of records of cell phoens and performs some operations on these records using linked lists.
+This program manipulates a set of records of cell phones and performs some operations on these records using linked lists.
 
 ## Requirements
 
