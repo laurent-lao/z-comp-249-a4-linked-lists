@@ -1,13 +1,37 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.io.PrintWriter;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class CellListUtilization {
 
+	/**
+	 * Instance variables
+	 */
+	static class Instance{
+
+		static Scanner keyIn;
+
+		/**
+		 * Creates a keyIn Scanner
+		 */
+		static void createKeyInput()
+		{
+			keyIn = new Scanner(System.in);
+		}
+
+		/**
+		 * Closes the keyIn Scanner
+		 */
+		static void closeKeyInput()
+		{
+			keyIn.close();
+		}
+	}
+
+	/**
+	 * Main method
+	 * @param args unused
+	 */
 	public static void main(String[] args) {
 		// Start code here
 		boolean isDebug = true; // manually toggle to see debug messages
@@ -20,14 +44,46 @@ public class CellListUtilization {
 		fileManip.initializeReader(inputFileName);
 		Scanner reader = fileManip.getInputReader();
 
+		// TODO: Read inputs from the CellList class
+
 		// Get new serial numbers from user
-		ArrayList<String> serialNumbers = promptUserSerialNumbers(5);
+		Instance.createKeyInput();
+		ArrayList<String> serialNumbers = promptUserForSerialNumbersToSearchFor(promptUserForHowManySerialsToSearchFor());
 		debug_printList(isDebug, serialNumbers);
 
-
+		// Search
 		// ==== End of Program ====
 		// Close the Scanner
+		Instance.closeKeyInput();
 		fileManip.closeFiles();
+	}
+
+	public static int promptUserForHowManySerialsToSearchFor() {
+		Scanner keyIn = Instance.keyIn;
+		boolean isCorrect             = false;
+		int     numberOfSerialNumbers = 0;
+
+		do
+		{
+			try
+			{
+				System.out.print("How many serials would you like to search for?: ");
+				numberOfSerialNumbers = keyIn.nextInt();
+				isCorrect = true;
+
+			} catch (InputMismatchException e)
+			{
+				System.out.println("This is not an integer. Try again...\n\n");
+				// Clean superficial inputs
+				if (keyIn.hasNextLine())
+				{
+					keyIn.nextLine();
+				}
+			}
+
+		} while (!isCorrect);
+
+		return numberOfSerialNumbers;
 	}
 
 	/**
@@ -37,11 +93,11 @@ public class CellListUtilization {
 	 *
 	 * @return a list of Strings containing some serial numbers
 	 */
-	public static ArrayList<String> promptUserSerialNumbers(int numberOfSerialNumbers) {
+	public static ArrayList<String> promptUserForSerialNumbersToSearchFor(int numberOfSerialNumbers) {
 		ArrayList<String> serialNumbersList = new ArrayList<>(numberOfSerialNumbers);
-		Scanner           keyIn             = new Scanner(System.in);
+		Scanner           keyIn             = Instance.keyIn;
 
-		System.out.println("\n\nRequesting " + numberOfSerialNumbers + " serials...");
+		System.out.println("\n\nRequesting " + numberOfSerialNumbers + " serials to search for...");
 		for (int i = 0; i < numberOfSerialNumbers; i++)
 		{
 			boolean isCorrectSerialNumber = false;

@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class FileManip {
 
-	boolean showDebug = false;            			// Manually toggle to true for debug messages
+	boolean showDebug = false;                        // Manually toggle to true for debug messages
 	private Scanner     inputReader    = null;
 	private PrintWriter outputWriter   = null;
 	private String      inputFileName  = null;
@@ -67,13 +67,19 @@ public class FileManip {
 		{
 			if (inputReader != null)
 			{
-				System.out.println("Closing Scanner");
+				if (showDebug == true)
+				{
+					System.out.println("Closing File Reader Scanner");
+				}
 				inputReader.close();
 			}
 
 			if (outputWriter != null)
 			{
-				System.out.println("Closing Printer");
+				if (showDebug == true)
+				{
+					System.out.println("Closing File Writer Printer");
+				}
 				outputWriter.close();
 			}
 
