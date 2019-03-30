@@ -62,7 +62,7 @@ public class FileManip {
 	 *
 	 * @return
 	 */
-	public boolean closeScannerAndWriter() {
+	public boolean closeFiles() {
 		if (inputReader != null || outputFileName != null)
 		{
 			if (inputReader != null)
