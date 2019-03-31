@@ -89,6 +89,13 @@ public class CellListUtilization {
 			// TODO: Search for the existence of those serials
 		}
 
+		CellPhone cellPhone = new CellPhone(19, "Samsung", 1991, 24.50);
+		System.out.println(cellPhone);
+
+		CellPhone caca = cellPhone.clone();
+		System.out.println(caca);
+
+
 		// TODO: Create some objects to test constructors for CellList
 
 		// 				 ==== End of Program ====

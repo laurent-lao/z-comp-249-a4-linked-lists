@@ -27,7 +27,7 @@ This program manipulates a set of records of cell phones and performs some opera
         * Parameterized constructor that initializes the four attributes
         * Copy constructor with two parameters: CellPhone object and a long value (new serial number), it is assumed that this value will correspond to the unique serial number rule
         * A clone(), method (will prompt the user to enter a new serial number)
-        * toString and equals() (although serial numbers can be the same)
+        * toString and equals() (although serial numbers can be the different)
 * Brand names is always recorded as a single word
 * No two cell phones may have the same serial number
 * The program shall handle a text file Cell_Info.txt which has the information of the various cell phone objects. (Has to handle zero or more records.)
