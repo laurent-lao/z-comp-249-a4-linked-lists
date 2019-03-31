@@ -61,6 +61,8 @@ public class CellListUtilization {
 
 		// TODO: Read inputs from the CellList class and put into a list
 
+		// Testing CellList
+
 		// TODO: Show content of list
 
 		// Get new serial numbers from user

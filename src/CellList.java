@@ -113,7 +113,7 @@ public class CellList {
 		}
 	}
 
-	public void deleteFromIndex(CellPhone cellPhone, int index)
+	public void deleteFromIndex(int index)
 	{
 		try
 		{
@@ -232,7 +232,7 @@ public class CellList {
 			{
 				// Return the node at the specified index
 				CellNode node = head;
-				for (int i = 0; i <= indexToCheck; i++)
+				for (int i = 0; i < indexToCheck; i++)
 				{
 					if (node != null)
 					{
@@ -260,6 +260,24 @@ public class CellList {
 
 		// Keeps compiler happy
 		return null;
+	}
+
+	public void add(CellPhone cellPhone)
+	{
+		if (size != 0)
+		{
+			// Adding cellPhone at the end
+			System.out.println("Current size: " + size);
+			System.out.println("Adding CellPhone (SN# " + cellPhone.getSerialNumber() + ") to list");
+			CellNode lastNode = nodeAtIndex(size - 1 , size - 1 );
+			lastNode.nextNode = new CellNode(cellPhone, null);
+			size++;
+			System.out.println("The list is now size " + size);
+		}
+		else
+		{
+			addToStart(cellPhone);
+		}
 	}
 
 	@Override
