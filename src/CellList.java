@@ -185,6 +185,22 @@ public class CellList {
 		return null;
 	}
 
+	public void searchFor(long serialNumber)
+	{
+		System.out.println("\nSearching for SN# " + serialNumber + " in list.");
+		CellNode node = find(serialNumber);
+
+		if(node != null)
+		{
+			System.out.println("Found matching serial number.\nHere's the information of the cellphone:");
+			System.out.println("\n" + node.cellphone);
+		}
+		else
+		{
+			System.out.println("No matching serial number found.\n");
+		}
+	}
+
 	public boolean contains(long serialNumber)
 	{
 		if (find(serialNumber) == null)

@@ -41,7 +41,7 @@ public class CellPhone {
 	 * @param year         an int that represents the year
 	 * @param price        a double that represents the price
 	 */
-	public CellPhone(long serialNumber, String brand, int year, double price) {
+	public CellPhone(long serialNumber, String brand, double price, int year) {
 		this.serialNumber = serialNumber;
 		this.brand = brand;
 		this.year = year;

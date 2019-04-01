@@ -10,6 +10,7 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * Names and ID: Laurent Lao (40020483)
@@ -48,10 +49,12 @@ public class CellListUtilization {
 	 * @param args unused
 	 */
 	public static void main(String[] args) {
+
 		// Start code here
 		boolean isDebug = true; // manually toggle to see debug messages
 
-		// TODO: Creates two empty lists from the CellList class
+		CellList cellphonesFromFile = new CellList();
+		CellList testingCellList = new CellList();
 
 		// Open Scanner for Cell_Info.txt
 		final String inputFileName = "Cell_Info.txt";
@@ -59,13 +62,31 @@ public class CellListUtilization {
 		fileManip.initializeReader(inputFileName);
 		Scanner reader = fileManip.getInputReader();
 
-		// TODO: Read inputs from the CellList class and put into a list
+		// Read inputs from the CellList class and put into a list
+		System.out.println("\n\nAdding " + inputFileName + " cellphones into linked list.");
+		int parseCounter = 0;
+		while (reader.hasNextLine())
+		{
+			System.out.println("\n\nParsing cellphone...");
+			CellPhone cellPhoneFromLine = parseCellphone(reader);
 
-		// Testing CellList
+			System.out.println("Checking serial number...");
+			// Only add if the serial number doesn't exist
+			if (!cellphonesFromFile.contains(cellPhoneFromLine.getSerialNumber()))
+			{
+				System.out.println("Adding to the list...");
+				cellphonesFromFile.add(cellPhoneFromLine);
+			}
+			else
+			{
+				System.out.println("Duplicate entry: ignoring...");
+			}
+		}
 
-		// TODO: Show content of list
+		// Show content of list
+		cellphonesFromFile.showContents();
 
-		// Get new serial numbers from user
+		// Get serial numbers from user and search if it's there
 		Instance.createKeyInput();
 		boolean isContinue = true;
 
@@ -85,20 +106,17 @@ public class CellListUtilization {
 				System.out.println("You've searched " + searchCounter + " time(s).");
 				isContinue = false;
 			}
+			else {
+
+				// Searching for that serial number in the list
+				cellphonesFromFile.searchFor(serialNumber);
+			}
 
 			searchCounter++;
-
-			// TODO: Search for the existence of those serials
 		}
 
-		CellPhone cellPhone = new CellPhone(19, "Samsung", 1991, 24.50);
-		System.out.println(cellPhone);
 
-		CellPhone caca = cellPhone.clone();
-		System.out.println(caca);
-
-
-		// TODO: Create some objects to test constructors for CellList
+		// TODO: Create some objects to test constructors and methods for CellList
 
 		// 				 ==== End of Program ====
 		//		 |										 |
@@ -107,6 +125,20 @@ public class CellListUtilization {
 		// Close the Scanner
 		Instance.closeKeyInput();
 		fileManip.closeFiles();
+	}
+
+	public static CellPhone parseCellphone(Scanner reader) {
+		String          line          = reader.nextLine();
+		StringTokenizer tokenizer     = new StringTokenizer(line);
+		String[]        cellphoneInfo = new String[4];
+
+		int index = 0;
+		while (tokenizer.hasMoreTokens())
+		{
+			cellphoneInfo[index] = tokenizer.nextToken();
+			index++;
+		}
+		return new CellPhone(Long.parseLong(cellphoneInfo[0]), cellphoneInfo[1], Double.parseDouble(cellphoneInfo[2]), Integer.parseInt(cellphoneInfo[3]));
 	}
 
 
