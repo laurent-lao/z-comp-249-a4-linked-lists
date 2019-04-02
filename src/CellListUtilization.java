@@ -54,7 +54,7 @@ public class CellListUtilization {
 		boolean isDebug = true; // manually toggle to see debug messages
 
 		CellList cellphonesFromFile = new CellList();
-		CellList testingCellList = new CellList();
+		CellList testingCellList    = new CellList();
 
 		// Open Scanner for Cell_Info.txt
 		final String inputFileName = "Cell_Info.txt";
@@ -88,14 +88,15 @@ public class CellListUtilization {
 
 		// Get serial numbers from user and search if it's there
 		Instance.createKeyInput();
-		boolean isContinue = true;
+		boolean endProgram = false;
 
-		int searchCounter = 1;
+		boolean isContinue = true;
+		int searchCounter = 0;
 		while (isContinue)
 		{
 			// Prompt for a serial number to search for
 			System.out.println("\n\n" +
-					"Serial number search #" + searchCounter + "\n" +
+					"Serial number search #" + (searchCounter + 1) + "\n" +
 					"========================\n");
 			System.out.println("Input a serial number to search for. Enter 0 to exit.");
 			long serialNumber = promptUserForSerialNumbersToSearchFor();
@@ -106,7 +107,8 @@ public class CellListUtilization {
 				System.out.println("You've searched " + searchCounter + " time(s).");
 				isContinue = false;
 			}
-			else {
+			else
+			{
 
 				// Searching for that serial number in the list
 				cellphonesFromFile.searchFor(serialNumber);
@@ -180,8 +182,8 @@ public class CellListUtilization {
 	/**
 	 * Debug: prints a given number
 	 *
-	 * @param isDebug     boolean if should print
-	 * @param number long to be printed
+	 * @param isDebug boolean if should print
+	 * @param number  long to be printed
 	 */
 	private static void debug_printNumber(boolean isDebug, long number) {
 		if (isDebug)

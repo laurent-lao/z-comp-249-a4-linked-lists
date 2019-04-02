@@ -147,10 +147,6 @@ public class CellPhone {
 
 	@Override
 	public String toString() {
-		return "Cellphone information: \n" +
-				"Serial Number is \t" + serialNumber + "\n" +
-				"Brand is \t\t\t" + brand + "\n" +
-				"Model Year is \t\t" + year + "\n" +
-				"Price is \t\t\t" + price +  "\n";
+		return "[" + serialNumber + ": " + brand + " " + price + "$ " + year + "]";
 	}
 }

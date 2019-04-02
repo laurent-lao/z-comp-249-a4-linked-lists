@@ -7,11 +7,7 @@
 // a LinkedList with that information
 // -----------------------------------------------------
 
-
-import javafx.scene.control.Cell;
-
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 /**
  * Names and ID: Laurent Lao (40020483)
@@ -25,68 +21,69 @@ public class CellList {
 
 	/**
 	 * inner CellNode Class
+	 * Privacy leak: CellNode class is available for direct use anywhere in the CellList class, but not outside that class.
 	 */
-	private class CellNode{
+	private class CellNode {
 
 		CellPhone cellphone;
-		CellNode nextNode;
+		CellNode  nextNode;
 
 		/**
 		 * Default constructor
 		 */
-		public CellNode(){
+		public CellNode() {
 			cellphone = null;
 			nextNode = null;
 		}
 
 		/**
 		 * Parameterized constructor
+		 *
 		 * @param cellphone object
-		 * @param cellNode object
+		 * @param cellNode  object
 		 */
-		public CellNode(CellPhone cellphone, CellNode cellNode)
-		{
+		public CellNode(CellPhone cellphone, CellNode cellNode) {
 			this.cellphone = cellphone;
 			this.nextNode = cellNode;
 		}
 
 		/**
 		 * Copy Constructor
+		 *
 		 * @param cellNode object to be copied
 		 */
-		public CellNode(CellNode cellNode){
+		public CellNode(CellNode cellNode) {
 			this.cellphone = cellNode.cellphone;
 			this.nextNode = cellNode.nextNode;
 		}
 
 		/**
 		 * Clone method
+		 *
 		 * @return cloned CellNode
 		 */
-		public CellNode clone()
-		{
-			return new CellNode(this.cellphone, this.nextNode);
+		public CellNode clone() {
+
+			// Grabs the current cellphone's serial number and make a copy of the cellphone using that SN
+			return new CellNode(new CellPhone(this.cellphone, this.cellphone.getSerialNumber()), this.nextNode);
 		}
 	}
 
 	private CellNode head;
-	private int size = 0;
+	private int      size = 0;
 
-	public CellList()
-	{
+	public CellList() {
 		head = null;
 	}
 
-	public void addToStart(CellPhone cellPhone)
-	{
+	public void addToStart(CellPhone cellPhone) {
 		// Add the new node to the head, assign previous head as the nextNode
 		head = new CellNode(cellPhone, head);
 		size++;
 
 	}
 
-	public void insertAtIndex(CellPhone cellPhone, int index)
-	{
+	public void insertAtIndex(CellPhone cellPhone, int index) {
 		if (size == 0)
 		{
 			addToStart(cellPhone);
@@ -95,7 +92,7 @@ public class CellList {
 		{
 			// Get related nodes
 			CellNode nodeBeforeIndex = nodeAtIndex(index - 1, index);
-			CellNode nodeAtIndex = nodeBeforeIndex.nextNode;
+			CellNode nodeAtIndex     = nodeBeforeIndex.nextNode;
 
 			// Create new node with nodeAtIndex as its nextNode
 			CellNode nodeToInsert = new CellNode(cellPhone, nodeAtIndex);
@@ -113,14 +110,13 @@ public class CellList {
 		}
 	}
 
-	public void deleteFromIndex(int index)
-	{
+	public void deleteFromIndex(int index) {
 		try
 		{
 			// Checks if there are any elements to delete
 			if (size == 0)
 			{
-				throw  new NullPointerException();
+				throw new NullPointerException();
 			}
 
 			// Get the node right before the one at the index
@@ -134,16 +130,14 @@ public class CellList {
 			nodeBeforeIndex = null;
 			return;
 
-		}
-		catch (NullPointerException e)
+		} catch (NullPointerException e)
 		{
 			System.out.println("Error: the list is of size 0, can't delete element.");
 			System.exit(0);
 		}
 	}
 
-	public void deleteFromStart()
-	{
+	public void deleteFromStart() {
 		if (size > 1)
 		{
 			head = head.nextNode;
@@ -160,10 +154,9 @@ public class CellList {
 		}
 	}
 
-	public CellNode find(long serialNumber)
-	{
-		int searchCounter = 1;
-		CellNode nodeToCheck = head;
+	public CellNode find(long serialNumber) {
+		int      searchCounter = 1;
+		CellNode nodeToCheck   = head;
 
 		while (nodeToCheck != null)
 		{
@@ -185,12 +178,11 @@ public class CellList {
 		return null;
 	}
 
-	public void searchFor(long serialNumber)
-	{
+	public void searchFor(long serialNumber) {
 		System.out.println("\nSearching for SN# " + serialNumber + " in list.");
 		CellNode node = find(serialNumber);
 
-		if(node != null)
+		if (node != null)
 		{
 			System.out.println("Found matching serial number.\nHere's the information of the cellphone:");
 			System.out.println("\n" + node.cellphone);
@@ -201,8 +193,7 @@ public class CellList {
 		}
 	}
 
-	public boolean contains(long serialNumber)
-	{
+	public boolean contains(long serialNumber) {
 		if (find(serialNumber) == null)
 		{
 			return false;
@@ -213,21 +204,40 @@ public class CellList {
 		}
 	}
 
-	public void showContents()
-	{
+	// Modify the formatting of the show method
+	public void showContents() {
+
+		System.out.println("\nPrinting CellList...");
 		if (head != null)
 		{
-			int nodeCounter = 0;
+			int      nodeCounter = 0;
 			CellNode currentNode = head;
+
+			// Printing header
+			String message = "The current list is " + size + ". Here are the contents of the list";
+			System.out.print("\n" + message + "\n");
+			for (int i = 0; i < message.length(); i++)
+			{
+				System.out.print("=");
+			}
+			System.out.print("\n");
+
+			// Printing list
 			while (currentNode != null)
 			{
-				System.out.println("Node " + nodeCounter);
-				System.out.println(currentNode.cellphone);
 
-				// Go to next node
+				if (nodeCounter % 3 == 0 && nodeCounter != 0)
+				{
+					// Insert return
+					System.out.print("\n");
+				}
+
+				System.out.print(currentNode.cellphone);
 				currentNode = currentNode.nextNode;
+				System.out.print(" ---> ");
 				nodeCounter++;
 			}
+			System.out.println(" X");
 		}
 		else
 		{
@@ -235,8 +245,7 @@ public class CellList {
 		}
 	}
 
-	public CellNode nodeAtIndex(int indexToCheck, int indexParamOfCallingMethod)
-	{
+	public CellNode nodeAtIndex(int indexToCheck, int indexParamOfCallingMethod) {
 		try
 		{
 			// Check if it's a valid index
@@ -262,13 +271,11 @@ public class CellList {
 
 				return node;
 			}
-		}
-		catch (NoSuchElementException e)
+		} catch (NoSuchElementException e)
 		{
 			System.out.println("Error: " + indexParamOfCallingMethod + " is invalid." + e.getMessage());
 			System.exit(0);
-		}
-		catch (NullPointerException e)
+		} catch (NullPointerException e)
 		{
 			System.out.println("Error: unexpected null node in the middle of the linked list.");
 			System.exit(0);
@@ -278,14 +285,13 @@ public class CellList {
 		return null;
 	}
 
-	public void add(CellPhone cellPhone)
-	{
+	public void add(CellPhone cellPhone) {
 		if (size != 0)
 		{
 			// Adding cellPhone at the end
 			System.out.println("Current size: " + size);
 			System.out.println("Adding CellPhone (SN# " + cellPhone.getSerialNumber() + ") to list");
-			CellNode lastNode = nodeAtIndex(size - 1 , size - 1 );
+			CellNode lastNode = nodeAtIndex(size - 1, size - 1);
 			lastNode.nextNode = new CellNode(cellPhone, null);
 			size++;
 			System.out.println("The list is now size " + size);
@@ -311,8 +317,7 @@ public class CellList {
 				checkIfSameElements(cellList.head);
 	}
 
-	public boolean checkIfSameElements(CellNode node)
-	{
+	public boolean checkIfSameElements(CellNode node) {
 		CellNode list1Node = head.nextNode;
 		CellNode list2Node = node.nextNode;
 
