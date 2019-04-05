@@ -40,11 +40,11 @@ public class CellList {
 		 * Parameterized constructor
 		 *
 		 * @param cellphone object
-		 * @param cellNode  object
+		 * @param nextNode  object
 		 */
-		public CellNode(CellPhone cellphone, CellNode cellNode) {
+		public CellNode(CellPhone cellphone, CellNode nextNode) {
 			this.cellphone = cellphone;
-			this.nextNode = cellNode;
+			this.nextNode = nextNode;
 		}
 
 		/**
@@ -72,8 +72,30 @@ public class CellList {
 	private CellNode head;
 	private int      size = 0;
 
+	/**
+	 *  CellList Default constructor
+	 */
 	public CellList() {
 		head = null;
+	}
+
+	/**
+	 * CellList copy constructor
+	 * @param cellList cellList to be copied
+	 */
+	public CellList(CellList cellList)
+	{
+		// Initialize a pointer to the list to be copied's head
+		CellNode nodeToBeCopied = cellList.head;
+
+		for (int i = 0; i < cellList.size; i++)
+		{
+			if (nodeToBeCopied != null)
+			{
+				add(nodeToBeCopied.cellphone);
+				nodeToBeCopied = nodeToBeCopied.nextNode;
+			}
+		}
 	}
 
 	public void addToStart(CellPhone cellPhone) {
@@ -151,6 +173,24 @@ public class CellList {
 		else
 		{
 			System.out.println("No more elements to delete");
+		}
+	}
+
+	public void replaceAtIndex(CellPhone cellPhone, int index)
+	{
+		if (index < 0 || index >= size)
+		{
+			System.out.println("No element to replace.");
+			return;
+		}
+		else
+		{
+			// Navigate to node at index
+			CellNode nodeAtIndex = nodeAtIndex(index -1 , index);
+
+			// Replace that node
+			nodeAtIndex.nextNode = new CellNode(cellPhone, nodeAtIndex.nextNode);
+
 		}
 	}
 
@@ -249,7 +289,7 @@ public class CellList {
 		try
 		{
 			// Check if it's a valid index
-			if ((indexToCheck < 0 && indexToCheck >= size) || (indexParamOfCallingMethod < 0 && indexParamOfCallingMethod >= size))
+			if ((indexToCheck < 0 || indexToCheck >= size) || (indexParamOfCallingMethod < 0 && indexParamOfCallingMethod >= size))
 			{
 				throw new NoSuchElementException();
 			}
@@ -273,7 +313,7 @@ public class CellList {
 			}
 		} catch (NoSuchElementException e)
 		{
-			System.out.println("Error: " + indexParamOfCallingMethod + " is invalid." + e.getMessage());
+			System.out.println("Error: " + indexParamOfCallingMethod + " is an invalid index: " + e.getMessage());
 			System.exit(0);
 		} catch (NullPointerException e)
 		{
