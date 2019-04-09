@@ -98,6 +98,10 @@ public class CellList {
 		}
 	}
 
+	/**
+	 * Add a cellphone to the start of the Linked list
+	 * @param cellPhone Cellphone object to be added
+	 */
 	public void addToStart(CellPhone cellPhone) {
 		// Add the new node to the head, assign previous head as the nextNode
 		head = new CellNode(cellPhone, head);
@@ -105,6 +109,11 @@ public class CellList {
 
 	}
 
+	/**
+	 * Insert the cell phone at an index
+	 * @param cellPhone Cellphone object to be added
+	 * @param index the index where to add the cellphone
+	 */
 	public void insertAtIndex(CellPhone cellPhone, int index) {
 		if (size == 0)
 		{
@@ -132,6 +141,10 @@ public class CellList {
 		}
 	}
 
+	/**
+	 * Deletes the node at a certain index
+	 * @param index an int representing the index of the node to delete
+	 */
 	public void deleteFromIndex(int index) {
 		try
 		{
@@ -159,6 +172,9 @@ public class CellList {
 		}
 	}
 
+	/**
+	 * Deletes a node from the start
+	 */
 	public void deleteFromStart() {
 		if (size > 1)
 		{
@@ -176,6 +192,11 @@ public class CellList {
 		}
 	}
 
+	/**
+	 * Replace the cellphone at a particular index
+	 * @param cellPhone Cellphone object to replace with
+	 * @param index int representing the index at which the node is replaced
+	 */
 	public void replaceAtIndex(CellPhone cellPhone, int index)
 	{
 		if (index < 0 || index >= size)
@@ -194,7 +215,13 @@ public class CellList {
 		}
 	}
 
-	public CellNode find(long serialNumber) {
+	/**
+	 * This method does not have a privacy leak because it is private.
+	 * The method is used by both searchFor as well as contains.
+	 * @param serialNumber to search for
+	 * @return
+	 */
+	private CellNode find(long serialNumber) {
 		int      searchCounter = 1;
 		CellNode nodeToCheck   = head;
 
@@ -218,6 +245,10 @@ public class CellList {
 		return null;
 	}
 
+	/**
+	 * Prints the information of the cellphone if it is found
+	 * @param serialNumber The serial number to look for
+	 */
 	public void searchFor(long serialNumber) {
 		System.out.println("\nSearching for SN# " + serialNumber + " in list.");
 		CellNode node = find(serialNumber);
@@ -233,6 +264,11 @@ public class CellList {
 		}
 	}
 
+	/**
+	 *
+	 * @param serialNumber
+	 * @return
+	 */
 	public boolean contains(long serialNumber) {
 		if (find(serialNumber) == null)
 		{
@@ -244,7 +280,9 @@ public class CellList {
 		}
 	}
 
-	// Modify the formatting of the show method
+	/**
+	 * Show the content of the list
+	 */
 	public void showContents() {
 
 		System.out.println("\nPrinting CellList...");
@@ -285,7 +323,14 @@ public class CellList {
 		}
 	}
 
-	public CellNode nodeAtIndex(int indexToCheck, int indexParamOfCallingMethod) {
+	/**
+	 * This method has no privacy leak since it is private
+	 * Returns the node at a certain index
+	 * @param indexToCheck
+	 * @param indexParamOfCallingMethod
+	 * @return
+	 */
+	private CellNode nodeAtIndex(int indexToCheck, int indexParamOfCallingMethod) {
 		try
 		{
 			// Check if it's a valid index
@@ -325,6 +370,10 @@ public class CellList {
 		return null;
 	}
 
+	/**
+	 * Adds cellphone at the end
+	 * @param cellPhone cellphone to be added at the end of the list
+	 */
 	public void add(CellPhone cellPhone) {
 		if (size != 0)
 		{
@@ -342,6 +391,11 @@ public class CellList {
 		}
 	}
 
+	/**
+	 * Checks equality of celllists
+	 * @param o another list to compare to
+	 * @return whether the list is equal or not
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -357,6 +411,11 @@ public class CellList {
 				checkIfSameElements(cellList.head);
 	}
 
+	/**
+	 * Checks whether the nodes contains same elements in subsequent nodes or not
+	 * @param node starting node to check
+	 * @return
+	 */
 	public boolean checkIfSameElements(CellNode node) {
 		CellNode list1Node = head.nextNode;
 		CellNode list2Node = node.nextNode;
