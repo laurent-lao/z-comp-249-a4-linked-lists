@@ -171,19 +171,50 @@ public class CellListUtilization {
 	}
 
 	public static void demoOfCellPhoneMethods(CellList cellphoneFromFiles) {
-		// TODO: Create some objects to test constructors and methods for CellList
+		// Default constructor
+		System.out.println("Creating a default Cellphone...");
+		CellPhone cellphone1 = new CellPhone();
+		System.out.println(cellphone1);
+		System.out.print("\n");
 
-		// TODO: Default constructor
+		// Parameterized constructor
+		System.out.println("Creating parameterized Cellphone...");
+		CellPhone cellphone2 = new CellPhone(420420, "President's Choice", 299, 2018);
+		System.out.println(cellphone2);
+		System.out.print("\n");
 
-		// TODO: Parameterized constructor
+		// Use copy constructor
+		System.out.println("Creating Cellphone using Copy Constructor...");
+		CellPhone cellphone3 = new CellPhone(cellphone2, 710710);
+		System.out.println(cellphone3);
+		System.out.print("\n");
 
-		// TODO: Use copy constructor
+		// Clone
+		System.out.println("Creating Cellphone using .clone()");
+		CellPhone cellphone4 = cellphone3.clone();
+		System.out.println(cellphone4);
+		System.out.print("\n");
 
-		// TODO: clone
+		// Get serial, brand, price, year
+		System.out.println("Accessors testing");
+		System.out.println("Get Serial: " + cellphone3.getSerialNumber());
+		System.out.println("Get Brand: " + cellphone3.getBrand());
+		System.out.println("Get Price: " + cellphone3.getPrice());
+		System.out.println("Get Year: " + cellphone3.getYear());
+		System.out.print("\n");
 
-		// TODO: Get serial, brand, price, year
-
-		// TODO: Set serial, brand, price, year
+		// Set serial, brand, price, year
+		System.out.println("Mutators testing");
+		System.out.println("Change Serial to: 300");
+		cellphone3.setSerialNumber(300);
+		System.out.println("Change Brand to: LOL");
+		cellphone3.setBrand("LOL");
+		System.out.println("Change Price to: 10.00");
+		cellphone3.setPrice(10.00);
+		System.out.println("Change Year to: 1991");
+		cellphone3.setYear(1991);
+		System.out.println(cellphone3);
+		System.out.print("\n");
 	}
 
 	public static void demoOfCellListMethods(CellList cellphoneFromFiles, CellList otherList) {
@@ -196,6 +227,7 @@ public class CellListUtilization {
 		cellphoneFromFiles.showContents();
 		System.out.println("Showing copy list...");
 		otherList.showContents();
+		System.out.print("\n");
 
 		// Modifying the new copy list and the original list
 		System.out.println("Deleting node at index 3 on copy cellphone list...");
@@ -210,23 +242,35 @@ public class CellListUtilization {
 		System.out.println("Showing the two lists...");
 		cellphoneFromFiles.showContents();
 		otherList.showContents();
+		System.out.print("\n");
 
-		// TODO: Add to start
+		System.out.println("Add to start of list...");
+		cellphoneFromFiles.addToStart(cellPhone);
+		cellphoneFromFiles.showContents();
+		System.out.print("\n");
 
-		// TODO: Insert at Index
+		System.out.println("Insert at Index 3");
+		cellphoneFromFiles.insertAtIndex(cellPhone, 4);
+		cellphoneFromFiles.showContents();
+		System.out.print("\n");
 
-		// TODO: Delete from Index
+		System.out.println("Delete from Index 3");
+		cellphoneFromFiles.deleteFromIndex(3);
+		cellphoneFromFiles.showContents();
+		System.out.print("\n");
 
-		// TODO: Delete from Start
+		System.out.println("Delete from start");
+		cellphoneFromFiles.deleteFromStart();
+		cellphoneFromFiles.showContents();
+		System.out.print("\n");
 
-		// TODO: Replace at Index
-
-		// TODO: Find
-
-		// TODO: Contains
+		System.out.println("Replace at Index");
+		cellphoneFromFiles.replaceAtIndex(cellPhone, 2);
+		cellphoneFromFiles.showContents();
+		System.out.print("\n");
 	}
 
-	public static void crash_insertAtIndex(CellList cellphonesFromFile, int index){
+	public static void crash_insertAtIndex(CellList cellphonesFromFile, int index) {
 
 		System.out.println("Create a cellphone to insert at index " + index);
 		System.out.println("Creating a new cellphone of sn: 420, brand hello, price 21.99, year 2019.");
@@ -235,12 +279,14 @@ public class CellListUtilization {
 		cellphonesFromFile.insertAtIndex(cellPhone, index);
 
 	}
-	public static void crash_deleteFromIndex(CellList cellphonesFromFile, int index){
+
+	public static void crash_deleteFromIndex(CellList cellphonesFromFile, int index) {
 		System.out.println("Deleting node at index " + index);
 		cellphonesFromFile.deleteFromIndex(index);
 	}
-	public static void error_replaceAtIndex(CellList cellphonesFromFile, int index){
-		System.out.println("Create a cellphone to replace at index "+ index);
+
+	public static void error_replaceAtIndex(CellList cellphonesFromFile, int index) {
+		System.out.println("Create a cellphone to replace at index " + index);
 		System.out.println("Creating a new cellphone of sn: 420, brand hello, price 21.99, year 2019.");
 		CellPhone cellPhone = new CellPhone(420, "Hello", 21.99, 2019);
 
