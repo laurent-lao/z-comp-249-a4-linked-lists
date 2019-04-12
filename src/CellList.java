@@ -67,6 +67,27 @@ public class CellList {
 			// Grabs the current cellphone's serial number and make a copy of the cellphone using that SN
 			return new CellNode(new CellPhone(this.cellphone, this.cellphone.getSerialNumber()), this.nextNode);
 		}
+
+		public boolean equals(Object o)
+		{
+			if (this == o)
+			{
+				return true;
+			}
+			if (o == null || getClass() != o.getClass())
+			{
+				return false;
+			}
+			CellNode cellNode = (CellNode) o;
+			if (nextNode == null || cellNode.nextNode == null)
+			{
+				return nextNode == cellNode.nextNode;
+			}
+			else
+			{
+				return cellphone.equals(cellNode.cellphone) && nextNode.equals(((CellNode) o).nextNode);
+			}
+		}
 	}
 
 	private CellNode head;
@@ -407,38 +428,28 @@ public class CellList {
 			return false;
 		}
 		CellList cellList = (CellList) o;
-		return size == cellList.size && head.equals(cellList.head) &&
-				checkIfSameElements(cellList.head);
+		return size == cellList.size && checkIfSameElements(cellList);
 	}
 
 	/**
 	 * Checks whether the nodes contains same elements in subsequent nodes or not
-	 * @param node starting node to check
+	 * @param list starting node to check
 	 * @return
 	 */
-	public boolean checkIfSameElements(CellNode node) {
-		CellNode list1Node = head.nextNode;
-		CellNode list2Node = node.nextNode;
+	public boolean checkIfSameElements(CellList list) {
+		CellNode list1Head = head;
+		CellNode list2Head = list.head;
 
-		for (int i = 1; i < size; i++)
-		{
-			if (list1Node == null || list2Node == null)
+			if (list1Head == null || list2Head == null)
 			{
-				// Break and return true
-				break;
-			}
-			else if (!list1Node.equals(list2Node))
-			{
-				return false;
+				if (list1Head == null && list2Head == null)
+					return true;
+				else
+					return false;
 			}
 			else
 			{
-				// Go to next node and check again
-				list1Node = list1Node.nextNode;
-				list2Node = list2Node.nextNode;
+				return list1Head.equals(list2Head);
 			}
-		}
-
-		return true;
 	}
 }

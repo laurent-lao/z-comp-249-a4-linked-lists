@@ -7,7 +7,6 @@
 // a LinkedList with that information
 // -----------------------------------------------------
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -227,6 +226,7 @@ public class CellListUtilization {
 		cellphoneFromFiles.showContents();
 		System.out.println("Showing copy list...");
 		otherList.showContents();
+		System.out.println("Checking for equality: " + cellphoneFromFiles.equals(otherList));
 		System.out.print("\n");
 
 		// Modifying the new copy list and the original list
